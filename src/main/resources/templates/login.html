@@ -20,9 +20,6 @@
 	<div class="row d-flex justify-content-center" th:if="${param.logout}">
 		You have been logged out.
 	</div><br/>
-	<div sec:authorize="isAuthenticated()">
-  		This content is only shown to authenticated users.
-	</div>
 	<div>
 		<form th:action="@{/login}" method="post">
 			<div class="row d-flex justify-content-center" style="position: relative; left: -6px"><label> User Name : <input type="text" name="username"/> </label></div>

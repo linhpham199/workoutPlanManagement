@@ -25,6 +25,12 @@ public class ExercisesController {
 	@Autowired
 	PlanRepository prepository;
 	
+	//Homepage
+	@RequestMapping(value="/", method=RequestMethod.GET)
+	public String index() {
+		return "index";
+	}
+	
 	//Login
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String login() {

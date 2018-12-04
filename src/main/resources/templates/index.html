@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<meta charset="UTF-8">
+<title>Homepage</title>
+</head>
+<body class="container-fluid">
+	<br/>
+	<div class="row">
+		<div class="col-sm-3"></div>
+		<div class="col-sm-3">
+			<h1>Home</h1>
+		</div>
+		<div class="col-sm-3"></div>
+		<div class="col-sm-3"></div>
+	</div>
+	<br/>
+	<div class="row">
+		<div class="col-sm-3"></div>
+  		<nav class="navbar navbar-expand-sm navbar-dark bg-dark col-sm-6">
+  			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    			<div class="navbar-nav">
+     				 <a class="nav-item nav-link active" href="/exercise_list">Exercises</a>
+     				 <a class="nav-item nav-link" href="/plan_list">Plans</a>
+     				 <a class="nav-item nav-link" href="/session_list">Sessions</a>
+     				 <p style="color: white; position: relative; left: 240px; top: 7px" th:inline="text"><b>Welcome <i>[[${#httpServletRequest.remoteUser}]]</i></b></p>
+     				 <form style="position: relative; left: 260px" th:action="@{/logout}" method="post">
+						<input type="submit" value="Sign Out" class="btn btn-light"/>
+					 </form>
+   			 	</div>
+  			</div>
+ 		 </nav>
+ 		 <div class="col-sm-3"></div>
+	</div>
+	<br/>
+	<div class="row d-flex justify-content-center">
+		<p>Welcome to Workout Plan Management!</p>
+	</div>
+</body>
+</html>
