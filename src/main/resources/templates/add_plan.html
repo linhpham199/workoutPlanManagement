@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<title>New plan</title>
+</head>
+<body class="container-fluid">
+	<br/>
+	<div class="row">
+		<div class="col-sm-4"></div>
+		<div class="col-sm-2">
+			<h1>Plan</h1>
+		</div>
+		<div class="col-sm-3"></div>
+		<div class="col-sm-3"></div>
+	</div>
+	<br/>
+	<div class="row">
+		<div class="col-sm-3"></div>
+  		<nav class="navbar navbar-expand-sm navbar-dark bg-dark col-sm-6">
+  			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    			<div class="navbar-nav">
+     				 <a class="nav-item nav-link" href="/exercise_list">Exercises</a>
+     				 <a class="nav-item nav-link active" href="/plan_list">Plans</a>
+     				 <a class="nav-item nav-link" href="/session_list">Sessions</a>
+     				 <p style="color: white; position: relative; left: 240px; top: 7px" th:inline="text"><b>Welcome <i>[[${#httpServletRequest.remoteUser}]]</i></b></p>
+     				 <form style="position: relative; left: 260px" th:action="@{/logout}" method="post">
+						<input type="submit" value="Sign Out" class="btn btn-light"/>
+					 </form>
+   			 	</div>
+  			</div>
+ 		 </nav>
+ 		 <div class="col-sm-3"></div>
+	</div>
+	<br/>
+	<div class="row">
+		<div class="col-sm-4"></div>
+		<div class="col-sm-2">
+			<h3>New plan</h3>
+		</div>
+		<div class="col-sm-3"></div>
+		<div class="col-sm-3"></div>
+	</div>
+	<div>
+		<form th:object="${plan}" th:action="@{add_p}" action="#" method="post">
+			<div class="form-row">
+				<div class="form-group col-sm-4"></div>
+				<div class="form-group col-sm-2">
+					<label for="name"><b>Plan name</b></label>
+					<input class="d-flex justify-content-end" type="text" id="name" th:field="*{name}" />
+				</div>
+				<div class="form-group col-sm-3">
+					<label for="elist"><b>Exercises</b></label>
+					<ul>
+					  <li th:each="exercise : ${exercises}">
+					    <input type="checkbox" th:field="*{exercises}" name="exercises" th:value="${exercise.id}" />
+					    <label th:text="${exercise.title}"></label>
+					  </li>
+					</ul>
+				</div>
+				<div class="form-group col-sm-3"></div>
+			</div>
+			<div class="d-flex justify-content-center">
+				<input type="submit" value="Save" class="btn btn-primary"></input>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

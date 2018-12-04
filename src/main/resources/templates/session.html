@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="UTF-8">
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<title>Sessions</title>
+</head>
+<body class="container-fluid">
+	<br/>
+	<div class="row">
+		<div class="col-sm-3"></div>
+		<div class="col-sm-4">
+			<h1>Sessions</h1>
+		</div>
+		<div class="col-sm-2 d-flex justify-content-end">
+			<a href="/add_s" class="btn btn-info">+ Book a training session</a>
+		</div>
+		<div class="col-sm-3"></div>
+	</div>
+	<br/>
+	<div class="row">
+		<div class="col-sm-3"></div>
+  		<nav class="navbar navbar-expand-sm navbar-dark bg-dark col-sm-6">
+  			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    			<div class="navbar-nav">
+     				 <a class="nav-item nav-link" href="/exercise_list">Exercises</a>
+     				 <a class="nav-item nav-link" href="/plan_list">Plans</a>
+     				 <a class="nav-item nav-link active" href="/session_list">Sessions</a>
+     				 <p style="color: white; position: relative; left: 240px; top: 7px" th:inline="text"><b>Welcome <i>[[${#httpServletRequest.remoteUser}]]</i></b></p>
+     				 <form style="position: relative; left: 260px" th:action="@{/logout}" method="post">
+						<input type="submit" value="Sign Out" class="btn btn-light"/>
+					 </form>
+   			 	</div>
+  			</div>
+ 		 </nav>
+ 		 <div class="col-sm-3"></div>
+	</div>
+	<br/>
+	<div class="row">
+		<h5 class="col-sm-3"></h5>
+		<h5 class="col-sm-2 d-flex justify-content-center table-primary">Date</h5>
+		<h5 class="col-sm-2 d-flex justify-content-center table-primary">Training plan</h5>
+		<h5 class="col-sm-2 d-flex justify-content-center table-primary">Personal trainer</h5>
+		<h5 sec:authorize="hasAuthority('ADMIN')" class="col-sm-1 d-flex justify-content-center table-primary"></h5>
+		<h5 class="col-sm-2"></h5>
+	</div>
+	<div class="row" th:each="ss : ${sessions} ">
+		<p class="col-sm-3"></p>
+		<p class="col-sm-2 d-flex justify-content-center border-bottom" th:text="${#dates.format(ss.date, 'dd-MMM-yyyy')}"></p>
+		<p class="col-sm-2 d-flex justify-content-center border-bottom" th:text=${ss.plan.name}></p>
+		<p class="col-sm-2 border-bottom d-flex justify-content-center" th:text=${ss.pt.name}></p>
+		<p sec:authorize="hasAuthority('ADMIN')" class="col-sm-1 d-flex justify-content-center border-bottom">			
+				<a class="btn btn-danger" th:href="@{/delete_s/{id}(id=${ss.id})}" style="position: relative; top:-5px">
+					<i class="fas fa-trash-alt d-flex justify-content-end" style="position: relative; font-size: 18px"></i>
+				</a>	
+		</p>
+		<p class="col-sm-2"></p>
+	</div>
+</body>
+</html>

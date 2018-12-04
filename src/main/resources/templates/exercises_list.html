@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="UTF-8">
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<title>Exercises</title>
+</head>
+<body class="container-fluid">
+	<br/>
+	<div class="row">
+		<div class="col-sm-3"></div>
+		<div class="col-sm-3">
+			<h1>Exercises</h1>
+		</div>
+		<div class="col-sm-3 d-flex justify-content-end">
+			<a href="/add" class="btn btn-info">+ Add more exercises</a>
+		</div>
+		<div class="col-sm-3"></div>
+	</div>
+	<br/>
+	<div class="row">
+		<div class="col-sm-3"></div>
+  		<nav class="navbar navbar-expand-sm navbar-dark bg-dark col-sm-6">
+  			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    			<div class="navbar-nav">
+     				 <a class="nav-item nav-link active" href="/exercise_list">Exercises</a>
+     				 <a class="nav-item nav-link" href="/plan_list">Plans</a>
+     				 <a class="nav-item nav-link" href="/session_list">Sessions</a>
+     				 <p style="color: white; position: relative; left: 240px; top: 7px" th:inline="text"><b>Welcome <i>[[${#httpServletRequest.remoteUser}]]</i></b></p>
+     				 <form style="position: relative; left: 260px" th:action="@{/logout}" method="post">
+						<input type="submit" value="Sign Out" class="btn btn-light"/>
+					</form>
+   			 	</div>
+  			</div>
+ 		 </nav>
+ 		 <div class="col-sm-3"></div>
+	</div>
+	<br/>
+	<div class="row">
+		<h5 class="col-sm-3"></h5>
+		<h5 class="col-sm-2 d-flex justify-content-center table-primary">Title</h5>
+		<h5 class="col-sm-2 d-flex justify-content-center table-primary">Body part</h5>
+		<h5 class="col-sm-1 d-flex justify-content-center table-primary">Instruction</h5>
+		<h5 class="col-sm-1 d-flex justify-content-center table-primary"></h5>
+		<h5 class="col-sm-1 d-flex justify-content-center table-primary" sec:authorize="hasAuthority('ADMIN')"></h5>
+		<h5 class="col-sm-2"></h5>
+	</div>
+	<div class="row" th:each="exercise : ${exercises} ">
+		<p class="col-sm-3"></p>
+		<p class="col-sm-2 d-flex justify-content-center border-bottom" th:text=${exercise.title}></p>
+		<p class="col-sm-2 d-flex justify-content-center border-bottom" th:text=${exercise.part.part}></p>
+		<p class="col-sm-1 border-bottom">
+			<a class="d-flex justify-content-center" th:href=${exercise.href}>Click here</a>	
+		</p>
+		<p class="col-sm-1 border-bottom">
+			<a th:href="@{/edit/{id}(id=${exercise.id})}">
+				<i class="fas fa-edit d-flex justify-content-end" style="position: relative; font-size: 20px"></i>			
+			</a>
+		</p>
+		<p sec:authorize="hasAuthority('ADMIN')" class="col-sm-1 d-flex justify-content-center border-bottom">			
+				<a class="btn btn-danger" th:href="@{/delete/{id}(id=${exercise.id})}" style="position: relative; top:-5px">
+					<i class="fas fa-trash-alt d-flex justify-content-end" style="position: relative; font-size: 18px"></i>
+				</a>	
+		</p>
+		<p class="col-sm-2"></p>
+	</div>
+</body>
+</html>

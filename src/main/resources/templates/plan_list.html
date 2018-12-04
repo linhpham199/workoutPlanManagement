@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="UTF-8">
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<title>Plans</title>
+</head>
+<body class="container-fluid">
+	<br/>
+	<div class="row">
+		<div class="col-sm-3"></div>
+		<div class="col-sm-3">
+			<h1>Plans</h1>
+		</div>
+		<div sec:authorize="hasAuthority('ADMIN')" class="col-sm-3 d-flex justify-content-end">
+			<a href="/add_p" class="btn btn-info">+ Add more plans</a>
+		</div>
+		<div class="col-sm-3"></div>
+	</div>
+	<br/>
+	<div class="row">
+		<div class="col-sm-3"></div>
+  		<nav class="navbar navbar-expand-sm navbar-dark bg-dark col-sm-6">
+  			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    			<div class="navbar-nav">
+     				 <a class="nav-item nav-link" href="/exercise_list">Exercises</a>
+     				 <a class="nav-item nav-link active" href="/plan_list">Plans</a>
+     				 <a class="nav-item nav-link" href="/session_list">Sessions</a>
+     				 <p style="color: white; position: relative; left: 240px; top: 7px" th:inline="text"><b>Welcome <i>[[${#httpServletRequest.remoteUser}]]</i></b></p>
+     				 <form style="position: relative; left: 260px" th:action="@{/logout}" method="post">
+						<input type="submit" value="Sign Out" class="btn btn-light"/>
+					</form>
+   			 	</div>
+  			</div>
+ 		 </nav>
+ 		 <div class="col-sm-3"></div>
+	</div>
+	<br/>
+	<div  class="row" th:each="plan : ${plans}">
+		<div class="col-sm-4"></div>
+		<div class="col-sm-4">
+			<div class="row border-bottom border-dark">
+    			<h4 th:text=${plan.name}></h4>
+    			<a sec:authorize="hasAuthority('ADMIN')" class="btn btn-danger" style="position: relative; margin-left: 370px; top: -10px" th:href="@{/delete_p/{id}(id=${plan.id})}">
+    				<i class="fas fa-trash-alt d-flex justify-content-end" style="position: relative; font-size: 18px"></i>
+    			</a>
+    		</div>
+        	<div th:each="exercise: ${plan.exercises}">
+        		<p class="d-flex justify-content-center" th:text="${exercise.title}"></p>
+       	 	</div>
+        	<div style="height: 50px"></div>
+		</div>
+        <div class="col-sm-4"></div>
+	</div>
+</body>
+</html>

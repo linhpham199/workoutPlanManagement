@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{../css/bootstrap.min.css}" />
+<meta charset="UTF-8">
+<title>Error</title>
+</head>
+<body class="container-fluid">
+	<h1 class="row d-flex justify-content-center"><b>ERROR</b></h1>
+	<h5 class="row d-flex justify-content-center">Sorry, you CANNOT delete this exercise</h5>
+	<div class="row">
+		<div class="col-sm-3"></div>
+		<p class="col-sm-6 d-flex justify-content-center" style="text-align: center">This exercise currently belongs to some plans. In order to delete this exercise, PLEASE delete plans including this exercise first.</p>
+		<div class="col-sm-3"></div>
+		<div class="col-sm-3"></div>
+		<div class="col-sm-6 d-flex justify-content-center">
+			<a href="/exercise_list" class="btn btn-primary" style="margin-right: 40px">Go to Exercises</a>
+			<a href="/plan_list" class="btn btn-primary">Go to Plans</a>
+		</div>
+		<div class="col-sm-3"></div>
+	</div>
+
+</body>
+</html>
